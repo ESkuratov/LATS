@@ -11,9 +11,9 @@ from collections import defaultdict
 from pydantic import BaseModel, Field
 from typing_extensions import TypedDict
 
-#from langchain_tavily import TavilySearch
-from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
+from langchain_tavily import TavilySearch
+#from langchain_community.tools.tavily_search import TavilySearchResults
+#from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 from langgraph.prebuilt import ToolNode
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
@@ -41,8 +41,11 @@ llm = ChatOpenAI(
     base_url = base_url)
 
 # Initialize search engine
-search = TavilySearchAPIWrapper()
-tavily_tool = TavilySearchResults(api_wrapper=search, max_results=5)
+#search = TavilySearchAPIWrapper()
+#tavily_tool = TavilySearchResults(api_wrapper=search, max_results=5)
+tavily_tool = TavilySearch(
+    max_results=10,
+    )
 tools = [tavily_tool]
 tool_node = ToolNode(tools=tools)
 
